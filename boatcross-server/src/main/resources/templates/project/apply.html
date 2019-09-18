@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="common/header-resource"/>
+
+    <title>提交项目部署审批</title>
+</head>
+
+<body>
+<div th:replace="common/navbar"/>
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <h2>提交项目部署审批</h2>
+    </div>
+    <form method="post" th:action="@{/project/applySubmit}" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">发版内容简述：</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" name="发版内容简述" value="发版内容简述（只是测试，不要审批及发版）"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">需求详情的链接或禅道链接：</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control input-sm" name="需求详情的链接或禅道链接"
+                       value="需求详情的链接或禅道链接（只是测试，不要审批及发版）"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">测试用例：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" name="测试用例、测试报告"
+                       value="测试用例、测试报告（只是测试，不要审批及发版）"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上线时间要求：</label>
+            <div class="col-sm-2">
+                <select name="上线时间要求" class="form-control input-sm">
+                    <option value="无特别要求">无特别要求</option>
+                </select>
+            </div>
+        </div>
+
+        <fieldset>
+            <legend>上线项目</legend>
+            <div th:each="projectApply:${projectApplyList}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">项目名：</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control input-sm" name="项目名[]" th:value="${projectApply.name}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">构建镜像版本：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control input-sm" name="构建镜像版本[]" th:value="${projectApply.lastBuildVersion}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Jenkins build 的地址：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" name="Jenkins build 的地址[]"
+                               th:value="${projectApply.lastBuildResult.url}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Merge Request 地址：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" name="Merge Request 地址[]"
+                               th:value="${projectApply.lastMergeRequest?.webUrl}"/>
+                    </div>
+                    <div class="col-sm-8">
+                        <span th:text="${projectApply.lastMergeRequest?.author?.name}"></span>
+                        <span th:text="${projectApply.lastMergeRequest?.title}"></span> 分支
+                        <span th:text="${projectApply.lastMergeRequest?.sourceBranch}"></span> 合并到
+                        <span th:text="${projectApply.lastMergeRequest?.targetBranch}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">确认：任务分支 已从 master 分支合过代码</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control input-sm" name="确认：任务分支 已从 master 分支合过代码[]" value="是"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">确认：任务分支 与 release 分支 的代码一致</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control input-sm" name="确认：任务分支 与 release 分支 的代码一致[]"
+                               value="一致"/>
+                    </div>
+                </div>
+                <hr/>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否有发版顺序要求：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control input-sm" name="是否有发版顺序要求" value="否"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">项目发版顺序：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control input-sm" name="项目发版顺序" value="项目发版顺序（只是测试，不要审批及发版）"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否涉及数据变更：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control input-sm" name="是否涉及数据变更" value="否"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2">
+                <input type="submit" value="提交" class="btn btn-sm btn-primary"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="common/footer-resource"/>
+
+</body>
+</html>

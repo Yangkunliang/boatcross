@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kelystor.boatcross.dao.DeployApplyMapper" >
+    <resultMap id="BaseResultMap" type="com.kelystor.boatcross.entity.DeployApply">
+    </resultMap>
+    
+    <select id="findDeployApplyDetail" resultMap="BaseResultMap">
+        SELECT *
+        FROM `deploy_apply`
+        
+        WHERE 1=1
+        <if test="id != null and id != ''">
+            AND id = #{id}
+        </if>
+        <if test="uid != null and uid != ''">
+            AND uid = #{uid}
+        </if>
+        <if test="processInstanceId != null and processInstanceId != ''">
+            AND process_instance_id = #{processInstanceId}
+        </if>
+        <if test="description != null and description != ''">
+            AND description = #{description}
+        </if>
+        <if test="env != null and env != ''">
+            AND env = #{env}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            AND create_time = #{createTime}
+        </if>
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `bc_deploy_apply` (`uid`, `process_instance_id`, `description`, `env`) VALUES
+        (#{uid}, #{processInstanceId}, #{description}, #{env})
+    </insert>
+</mapper>

@@ -48,4 +48,75 @@ public class User implements Serializable {
 	 */
 	private String dingdingDepartmentName;
 
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getGitlabPrivateToken() {
+        return gitlabPrivateToken;
+    }
+
+    public void setGitlabPrivateToken(String gitlabPrivateToken) {
+        this.gitlabPrivateToken = gitlabPrivateToken;
+    }
+
+    public String getDingdingUserId() {
+        return dingdingUserId;
+    }
+
+    public void setDingdingUserId(String dingdingUserId) {
+        this.dingdingUserId = dingdingUserId;
+    }
+
+    public Integer getDingdingDepartmentId() {
+        return dingdingDepartmentId;
+    }
+
+    public void setDingdingDepartmentId(Integer dingdingDepartmentId) {
+        this.dingdingDepartmentId = dingdingDepartmentId;
+    }
+
+    public String getDingdingDepartmentName() {
+        return dingdingDepartmentName;
+    }
+
+    public void setDingdingDepartmentName(String dingdingDepartmentName) {
+        this.dingdingDepartmentName = dingdingDepartmentName;
+    }
 }

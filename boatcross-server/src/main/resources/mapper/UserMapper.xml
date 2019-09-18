@@ -3,4 +3,18 @@
 <mapper namespace="com.kelystor.boatcross.dao.UserMapper">
     <resultMap id="BaseResultMap" type="com.kelystor.boatcross.entity.User">
     </resultMap>
+
+    <select id="findByUid" resultMap="BaseResultMap">
+        SELECT * FROM `bc_user`
+        <where>
+            `uid`=#{uid}
+        </where>
+    </select>
+
+    <select id="findByUsername" resultMap="BaseResultMap">
+        SELECT * FROM `bc_user`
+        <where>
+            `username`=#{username}
+        </where>
+    </select>
 </mapper>

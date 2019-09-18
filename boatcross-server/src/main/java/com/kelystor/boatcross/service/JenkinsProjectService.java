@@ -72,6 +72,14 @@ public class JenkinsProjectService {
         }
     }
 
+    public void apply() {
+
+    }
+
+    public JenkinsAPI buildJenkinsAPIFromEnvironment(DeployEnvironment deployEnvironment) {
+        return buildJenkinsAPIFromConfig(settingService.getJenkinsConfig(deployEnvironment));
+    }
+
     private JenkinsAPI buildJenkinsAPIFromConfig(JenkinsConfig jenkinsConfig) {
         return JenkinsAPI.connect(jenkinsConfig.getUrl(), jenkinsConfig.getUsername(), jenkinsConfig.getApiToken());
     }
