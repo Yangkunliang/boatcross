@@ -23,18 +23,17 @@ import java.util.concurrent.ThreadLocalRandom;
         decoders = JenkinsApproveRequestDecoder.class
 )
 @Component
+/**
+ * 连接相关的变量使用注意事项，请参考`JenkinsProjectEndpoint`
+ */
 public class JenkinsProjectApproveEndpoint {
     private static final Logger LOGGER = LoggerFactory.getLogger(JenkinsProjectApproveEndpoint.class);
-
-    // 与某个客户端的连接会话，需要通过它来给客户端发送数据
-    private Session session;
 
     @Autowired
     private AliyunContainerService aliyunContainerService;
 
     @OnOpen
     public void onOpen(Session session) {
-        this.session = session;
     }
 
     @OnClose
@@ -44,70 +43,70 @@ public class JenkinsProjectApproveEndpoint {
     @OnMessage
     public void onMessage(JenkinsApproveRequest approveRequest, Session session) {
         if (approveRequest.getAction() == JenkinsApproveRequest.ACTION.DEPLOY) {
-            deploy(approveRequest.getDaId());
+            deploy(approveRequest.getDaId(), session);
         } else if (approveRequest.getAction() == JenkinsApproveRequest.ACTION.CONFIRM) {
-            confirm(approveRequest.getDaId());
+            confirm(approveRequest.getDaId(), session);
         }
     }
 
-    public void deploy(Integer daId) {
+    public void deploy(Integer daId, Session session) {
         aliyunContainerService.deploy(daId, new AliyunContainerProjectUpdateEvent() {
             @Override
             public void onDeploying(DeployProjectApply projectApply) {
                 JenkinsDeployResult result = JenkinsDeployResult.deploy(projectApply.getProject(), String.format("线上更新中%s", stringRepeat(".", ThreadLocalRandom.current().nextInt(8) + 1)));
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onFinishDeploy(DeployProjectApply projectApply) {
                 JenkinsDeployResult result = JenkinsDeployResult.deploy(projectApply.getProject(), "线上更新完成");
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onDeployFailed(DeployProjectApply projectApply, String message) {
                 JenkinsDeployResult result = JenkinsDeployResult.deploy(projectApply.getProject(), message);
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onDeployError(DeployProjectApply projectApply, String message) {
                 JenkinsDeployResult result = JenkinsDeployResult.deploy(projectApply.getProject(), message);
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onComplete() {
                 JenkinsDeployResult result = JenkinsDeployResult.complete();
-                sendMessage(result);
+                sendMessage(result, session);
             }
         });
     }
 
-    public void confirm(Integer daId) {
+    public void confirm(Integer daId, Session session) {
         aliyunContainerService.confirm(daId, new AliyunContainerConfirmProjectUpdateEvent() {
             @Override
             public void onStartConfirm(DeployProjectApply projectApply) {
                 JenkinsDeployResult result = JenkinsDeployResult.confirm(projectApply.getProject(), "正在确认发布");
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onConfirmSuccess(DeployProjectApply projectApply) {
                 JenkinsDeployResult result = JenkinsDeployResult.confirm(projectApply.getProject(), "已发布");
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onConfirmError(DeployProjectApply projectApply, String message) {
                 JenkinsDeployResult result = JenkinsDeployResult.confirm(projectApply.getProject(), message);
-                sendMessage(result);
+                sendMessage(result, session);
             }
 
             @Override
             public void onComplete() {
                 JenkinsDeployResult result = JenkinsDeployResult.complete();
-                sendMessage(result);
+                sendMessage(result, session);
             }
         });
     }
@@ -117,9 +116,9 @@ public class JenkinsProjectApproveEndpoint {
         LOGGER.error("websocket发生错误", error);
     }
 
-    private void sendMessage(JenkinsDeployResult result) {
+    private void sendMessage(JenkinsDeployResult result, Session session) {
         try {
-            this.session.getBasicRemote().sendObject(result);
+            session.getBasicRemote().sendObject(result);
         } catch (IOException | EncodeException e) {
             LOGGER.error("websocket发送消息异常", e);
         }
