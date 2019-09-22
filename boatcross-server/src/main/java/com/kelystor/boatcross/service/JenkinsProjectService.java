@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class JenkinsProjectService {
@@ -38,7 +39,7 @@ public class JenkinsProjectService {
                 // 触发构建
                 jenkinsAPI.triggerBuild(project.getName(), project.getTriggerToken());
 
-                Thread.sleep(3000);
+                TimeUnit.SECONDS.sleep(3);
 
                 // 轮询检测是否构建完成
                 JenkinsBuildResult buildingResult;
@@ -54,7 +55,7 @@ public class JenkinsProjectService {
                         }
                     }
 
-                    Thread.sleep(3000);
+                    TimeUnit.SECONDS.sleep(3);
                 }
 
                 if (buildingResult.isSuccess()) {

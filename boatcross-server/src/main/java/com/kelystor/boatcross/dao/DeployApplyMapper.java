@@ -9,5 +9,9 @@ import java.util.List;
 public interface DeployApplyMapper {
     List<DeployApply> findDeployApplyDetail(DeployApply deployApply);
 
+    DeployApply findById(Integer id);
+
+    List<DeployApply> findAll();
+
     void save(DeployApply deployApply);
 }

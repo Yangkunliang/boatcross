@@ -15,6 +15,22 @@ public class JenkinsDeployResult implements Serializable {
         return result;
     }
 
+    public static JenkinsDeployResult deploy(String project, String message) {
+        JenkinsDeployResult result = new JenkinsDeployResult();
+        result.setMessage(message);
+        result.setPhase("deploy");
+        result.setProject(project);
+        return result;
+    }
+
+    public static JenkinsDeployResult confirm(String project, String message) {
+        JenkinsDeployResult result = new JenkinsDeployResult();
+        result.setMessage(message);
+        result.setPhase("confirm");
+        result.setProject(project);
+        return result;
+    }
+
     public static JenkinsDeployResult complete() {
         JenkinsDeployResult result = new JenkinsDeployResult();
         result.setPhase("complete");

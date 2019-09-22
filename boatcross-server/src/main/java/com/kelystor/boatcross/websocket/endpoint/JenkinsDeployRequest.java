@@ -5,12 +5,6 @@ import java.util.List;
 public class JenkinsDeployRequest {
     private List<String> projects;
 
-    enum UpdateMethod {
-        STANDARD,
-        BLUE_GREEN,
-        INTELLIGENT;
-    }
-
     public List<String> getProjects() {
         return projects;
     }

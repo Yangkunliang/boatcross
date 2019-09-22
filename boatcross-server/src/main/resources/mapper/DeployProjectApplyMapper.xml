@@ -6,7 +6,7 @@
     
     <select id="findDeployProjectApplyDetail" resultMap="BaseResultMap">
         SELECT *
-        FROM `deploy_project_apply`
+        FROM `bc_deploy_project_apply`
         
         WHERE 1=1
         <if test="id != null and id != ''">
@@ -30,6 +30,21 @@
         <if test="createTime != null and createTime != ''">
             AND create_time = #{createTime}
         </if>
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM `bc_deploy_project_apply`
+        ORDER BY id DESC
+    </select>
+
+    <select id="findByDaId" resultMap="BaseResultMap">
+        SELECT *
+        FROM `bc_deploy_project_apply`
+        <where>
+            da_id=#{daId}
+        </where>
+        ORDER BY id ASC
     </select>
 
     <insert id="save">

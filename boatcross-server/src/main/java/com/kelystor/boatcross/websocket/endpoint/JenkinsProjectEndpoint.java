@@ -5,6 +5,8 @@ import com.kelystor.boatcross.entity.JenkinsProject;
 import com.kelystor.boatcross.service.JenkinsProjectEvent;
 import com.kelystor.boatcross.service.JenkinsProjectService;
 import com.kelystor.boatcross.util.ContextUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 )
 @Component
 public class JenkinsProjectEndpoint {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JenkinsProjectEndpoint.class);
+
     // 与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
@@ -68,7 +72,7 @@ public class JenkinsProjectEndpoint {
 
             @Override
             public void onBuilding(JenkinsProject project) {
-                JenkinsDeployResult result = JenkinsDeployResult.build(project.getName(), String.format("构建中%s", stringRepeat(".", ThreadLocalRandom.current().nextInt(5) + 1)));
+                JenkinsDeployResult result = JenkinsDeployResult.build(project.getName(), String.format("构建中%s", stringRepeat(".", ThreadLocalRandom.current().nextInt(8) + 1)));
                 sendMessage(result);
             }
 
@@ -109,15 +113,14 @@ public class JenkinsProjectEndpoint {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        System.out.println("发生错误");
-        error.printStackTrace();
+        LOGGER.error("websocket发生错误", error);
     }
 
     private void sendMessage(JenkinsDeployResult result) {
         try {
             this.session.getBasicRemote().sendObject(result);
         } catch (IOException | EncodeException e) {
-            e.printStackTrace();
+            LOGGER.error("websocket发送消息异常", e);
         }
     }
 

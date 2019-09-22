@@ -1,6 +1,7 @@
 package com.kelystor.boatcross.service;
 
 import com.kelystor.boatcross.dao.SettingMapper;
+import com.kelystor.boatcross.entity.AliyunContainerConfig;
 import com.kelystor.boatcross.entity.GitLabConfig;
 import com.kelystor.boatcross.entity.JenkinsConfig;
 import com.kelystor.boatcross.entity.Setting;
@@ -26,5 +27,10 @@ public class SettingService {
     public GitLabConfig getGitLabConfig() {
         Optional<Setting> setting = settingMapper.findByKeyAndEnvironment("gitlab", null);
         return setting.map(settingValue -> jsonMapper.toObject(settingValue.getValue(), GitLabConfig.class)).orElse(null);
+    }
+
+    public AliyunContainerConfig getAliyunContainerConfig(DeployEnvironment environment) {
+        Optional<Setting> setting = settingMapper.findByKeyAndEnvironment("aliyunContainer", environment);
+        return setting.map(settingValue -> jsonMapper.toObject(settingValue.getValue(), AliyunContainerConfig.class)).orElse(null);
     }
 }

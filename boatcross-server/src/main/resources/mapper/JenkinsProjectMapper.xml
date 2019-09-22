@@ -24,6 +24,13 @@
         ORDER BY -`priority` DESC
     </select>
 
+    <select id="findByProjectName" resultMap="BaseResultMap">
+        SELECT * FROM `bc_jenkins_project`
+        <where>
+            `name`=#{project} AND `env`=#{environment}
+        </where>
+    </select>
+
     <select id="findByEnvironments" resultMap="BaseResultMap">
         SELECT * FROM `bc_jenkins_project`
         <where>
