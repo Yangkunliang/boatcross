@@ -21,13 +21,20 @@
     </insert>
 
     <update id="update">
-        UPDATE `bc_setting` SET
+        UPDATE `bc_setting`
         <set>
         `value`=#{value},
-        `env`=#{env},
         </set>
         <where>
         `key`=#{key}
+        <choose>
+            <when test="env != null">
+            AND `env`=#{env}
+            </when>
+            <otherwise>
+            AND `env` IS NULL
+            </otherwise>
+        </choose>
         </where>
     </update>
 </mapper>
