@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/boatcross?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://localhost:3306/boatcross?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&useLegacyDatetimeCode=false
 
   thymeleaf:
     cache: false
