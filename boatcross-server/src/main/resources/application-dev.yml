@@ -9,3 +9,10 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+  shiro:
+    ldap:
+      url: ldap://localhost
+      system-username: cn=Manager,dc=srv,dc=world
+      system-password: test
+      user-dn-template: uid={0},ou=People,dc=srv,dc=world

@@ -17,4 +17,9 @@
             `username`=#{username}
         </where>
     </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO `bc_user` (`username`, `name`, `nickname`, `avatar`, `gitlab_private_token`, `dingding_user_id`, `dingding_department_id`, `dingding_department_name`) VALUES
+        (#{username}, #{name}, #{nickname}, #{avatar}, #{gitlabPrivateToken}, #{dingdingUserId}, #{dingdingDepartmentId}, #{dingdingDepartmentName})
+    </insert>
 </mapper>

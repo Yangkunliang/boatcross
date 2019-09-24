@@ -1,6 +1,9 @@
 package com.kelystor.boatcross.interceptor;
 
 import com.kelystor.boatcross.dao.UserMapper;
+import com.kelystor.boatcross.entity.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -22,8 +25,18 @@ public class UserInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String username = "zengql";
-        request.setAttribute("currentUser", userMapper.findByUsername(username));
+        Subject subject = SecurityUtils.getSubject();
+        if (subject != null && subject.getPrincipal() != null) {
+            String username = (String) subject.getPrincipal();
+            User currentUser = userMapper.findByUsername(username);
+            if (currentUser == null) {
+                currentUser = new User();
+                currentUser.setName("");
+                currentUser.setUsername(username);
+                userMapper.save(currentUser);
+            }
+            request.setAttribute("currentUser", currentUser);
+        }
 
         return true;
     }

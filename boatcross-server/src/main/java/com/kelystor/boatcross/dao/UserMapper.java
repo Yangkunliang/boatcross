@@ -9,4 +9,6 @@ public interface UserMapper {
     User findByUid(Integer uid);
 
     User findByUsername(String username);
+
+    void save(User user);
 }
