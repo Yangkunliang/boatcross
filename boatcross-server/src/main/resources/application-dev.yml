@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/boatcross?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://localhost:3306/boatcross?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&useLegacyDatetimeCode=false
 
   thymeleaf:
     cache: false
@@ -9,3 +9,10 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+  shiro:
+    ldap:
+      url: ldap://localhost
+      system-username: cn=Manager,dc=srv,dc=world
+      system-password: test
+      user-dn-template: uid={0},ou=People,dc=srv,dc=world

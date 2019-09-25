@@ -5,6 +5,7 @@ public class JenkinsBuildResult {
     private Boolean building;
     private String result;
     private Long timestamp;
+    private String url;
 
     public Integer getNumber() {
         return number;
@@ -42,6 +43,14 @@ public class JenkinsBuildResult {
         this.timestamp = timestamp;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "JenkinsBuildResult{" +
@@ -49,6 +58,7 @@ public class JenkinsBuildResult {
                 ", building=" + building +
                 ", result='" + result + '\'' +
                 ", timestamp=" + timestamp +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

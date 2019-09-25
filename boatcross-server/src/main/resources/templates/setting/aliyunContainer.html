@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="common/header-resource"/>
+
+    <title>阿里云容器配置</title>
+</head>
+
+<body>
+<div th:replace="common/navbar"/>
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <h2>阿里云容器配置</h2>
+    </div>
+    <form method="post" th:action="@{/setting/aliyunContainerUpdate}" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">证书路径：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" placeholder="请输入证书路径" name="certPath" th:value="${aliyunContainerConfig.certPath}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Master Url：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" placeholder="请输入Master Url" name="masterUrl" th:value="${aliyunContainerConfig.masterUrl}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">环境：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" th:value="${currentDeployEnvironment}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2">
+                <input type="submit" value="提交" class="btn btn-sm btn-primary"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="common/footer-resource"/>
+
+</body>
+</html>

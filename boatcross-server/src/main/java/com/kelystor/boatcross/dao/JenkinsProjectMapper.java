@@ -17,5 +17,7 @@ public interface JenkinsProjectMapper {
 
     List<JenkinsProject> findByProjectNames(List<String> projects, DeployEnvironment environment);
 
+    JenkinsProject findByProjectName(String project, DeployEnvironment environment);
+
     List<JenkinsProject> findByEnvironments(DeployEnvironment environment);
 }

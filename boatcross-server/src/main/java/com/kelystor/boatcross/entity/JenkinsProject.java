@@ -43,6 +43,14 @@ public class JenkinsProject implements Serializable {
 	 */
 	private String env;
 
+    public String getAliyunContainerProjectName() {
+        String aliyunProjectName = aliyunName;
+        if (aliyunProjectName == null || aliyunProjectName.isEmpty()) {
+            aliyunProjectName = name;
+        }
+        return aliyunProjectName;
+    }
+
     public Integer getId() {
         return id;
     }

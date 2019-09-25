@@ -31,6 +31,7 @@
         <httpclient.version>4.5.9</httpclient.version>
         <shiro-spring-boot.version>1.4.1</shiro-spring-boot.version>
         <mybatis-spring-boot.version>2.1.0</mybatis-spring-boot.version>
+        <bouncycastle.version>1.63</bouncycastle.version>
     </properties>
 
     <dependencyManagement>
@@ -56,6 +57,11 @@
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>${shiro-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

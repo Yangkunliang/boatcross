@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kelystor.boatcross.dao.DeployProjectApplyMapper" >
+    <resultMap id="BaseResultMap" type="com.kelystor.boatcross.entity.DeployProjectApply">
+    </resultMap>
+    
+    <select id="findDeployProjectApplyDetail" resultMap="BaseResultMap">
+        SELECT *
+        FROM `bc_deploy_project_apply`
+        
+        WHERE 1=1
+        <if test="id != null and id != ''">
+            AND id = #{id}
+        </if>
+        <if test="uid != null and uid != ''">
+            AND uid = #{uid}
+        </if>
+        <if test="project != null and project != ''">
+            AND project = #{project}
+        </if>
+        <if test="version != null and version != ''">
+            AND version = #{version}
+        </if>
+        <if test="phase != null and phase != ''">
+            AND phase = #{phase}
+        </if>
+        <if test="env != null and env != ''">
+            AND env = #{env}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            AND create_time = #{createTime}
+        </if>
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM `bc_deploy_project_apply`
+        ORDER BY id DESC
+    </select>
+
+    <select id="findByDaId" resultMap="BaseResultMap">
+        SELECT *
+        FROM `bc_deploy_project_apply`
+        <where>
+            da_id=#{daId}
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <insert id="save">
+        INSERT INTO `bc_deploy_project_apply` (`da_id`, `project`, `version`) VALUES
+        (#{daId}, #{project}, #{version});
+    </insert>
+</mapper>

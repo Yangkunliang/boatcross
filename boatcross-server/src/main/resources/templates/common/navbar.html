@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top" xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -13,27 +13,32 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/project">Project</a></li>
-                <li><a href="/">About</a></li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/project}">Project</a></li>
+                <li><a th:href="@{/deploy/approve}">Approve</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Setting <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">GitLab</a></li>
-                        <li><a href="#">阿里云</a></li>
-                        <li><a href="#">钉钉</a></li>
+                        <li><a th:href="@{/setting/gitlab}">GitLab</a></li>
+                        <li><a th:href="@{/setting/aliyunContainer}">阿里云容器</a></li>
+                        <li><a th:href="@{/setting/dingding}">钉钉</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Jenkins</li>
-                        <li><a href="/jenkins/add">add</a></li>
-                        <li><a href="/jenkins/list">list</a></li>
-                        <li><a href="/setting">config</a></li>
+                        <li><a th:href="@{/jenkins/add}">add</a></li>
+                        <li><a th:href="@{/jenkins/list}">list</a></li>
+                        <li><a th:href="@{/setting/jenkins}">config</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">username</a></li>
-                <li><a href="/">Profile</a></li>
+                <li class="active dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="${currentUser?.username}"></span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/logout}">logout</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" th:text="${currentDeployEnvironment}"></a></li>
             </ul>
         </div>
     </div>
