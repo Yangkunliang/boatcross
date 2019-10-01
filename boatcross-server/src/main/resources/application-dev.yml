@@ -13,7 +13,7 @@ spring:
 
   shiro:
     ldap:
-      url: ldap://localhost
+      url: ldap://47.110.55.207
       system-username: cn=Manager,dc=srv,dc=world
       system-password: test
       user-dn-template: uid={0},ou=People,dc=srv,dc=world

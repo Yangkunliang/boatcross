@@ -14,6 +14,13 @@ public class WebApiResponse<T> {
         return webApiResponse;
     }
 
+    public static WebApiResponse fail(int code, String message){
+        WebApiResponse response = new WebApiResponse();
+        response.setCode(code);
+        response.setMessage(message);
+        return response;
+    }
+
     public int getCode() {
         return code;
     }
