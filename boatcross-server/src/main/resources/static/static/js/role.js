@@ -11,7 +11,6 @@ $(function () {
             function (json) {
                 var code = json.code;
                 if (code == 0) {
-                    alert("success");
                     $('#addModal').modal('hide');
                    refresh();
                 } else {
