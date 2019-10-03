@@ -41,7 +41,7 @@ public class RoleController {
     public WebApiResponse save(RoleDto roleDto, @CurrentUser User user) {
         Role role = new Role();
         BeanUtils.copyProperties(roleDto, role);
-        role.setCreateBy(user.getName());
+        role.setCreateBy(user.getUsername());
         try {
             roleMapper.save(role);
         } catch (Exception e) {

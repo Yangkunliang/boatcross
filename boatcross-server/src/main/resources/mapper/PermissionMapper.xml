@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kelystor.boatcross.dao.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.kelystor.boatcross.entity.Permission">
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO `permission`(`permission`, `name`, `description`, `access_type`,  `create_by`, `create_time`)
+       VALUES (#{permission}, #{name}, #{description}, #{accessType}, #{createBy}, now())
+    </insert>
+
+    <select id="findPermissionList" resultMap="BaseResultMap">
+        SELECT * FROM permission
+    </select>
+</mapper>

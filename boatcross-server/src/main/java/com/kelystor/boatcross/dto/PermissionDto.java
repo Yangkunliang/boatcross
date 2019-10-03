@@ -1,25 +1,17 @@
-package com.kelystor.boatcross.entity;
+package com.kelystor.boatcross.dto;
 
-public class Authority extends BaseEntity {
+import java.io.Serializable;
+
+public class PermissionDto implements Serializable {
     /**
-     * 权限名称，中文
+     * 权限名称
      */
     private String name;
 
     /**
-     * 权限字符串
+     * 权限标识
      */
     private String permission;
-
-    /**
-     * 权限描述
-     */
-    private String description;
-
-    /**
-     * 权限状态
-     */
-    private Integer status;
 
     /**
      * 方法访问级别权限类型：0-操作权限，1-资源权限
@@ -42,22 +34,6 @@ public class Authority extends BaseEntity {
         this.permission = permission;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public Integer getAccessType() {
         return accessType;
     }
@@ -68,12 +44,10 @@ public class Authority extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Authority{" +
+        return "Permission{" +
                 "name='" + name + '\'' +
                 ", permission='" + permission + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
                 ", accessType=" + accessType +
-                "} " + super.toString();
+                '}';
     }
 }
