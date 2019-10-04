@@ -14,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,7 +39,7 @@ public class RoleController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public WebApiResponse save(RoleDto roleDto, @CurrentUser User user) {
         Role role = new Role();
@@ -49,5 +52,25 @@ public class RoleController {
             return WebApiResponse.fail(CodeConstants.SYSTEM_ERROR, e.getMessage());
         }
         return WebApiResponse.success(role);
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public WebApiResponse delete(HttpServletRequest request) {
+        String[] roleIds = request.getParameterValues("roleIds[]");
+        List<Long> deleteRoleIds = new ArrayList<>();
+        for (String roleId : roleIds) {
+            deleteRoleIds.add(Long.valueOf(roleId));
+        }
+        try {
+            roleMapper.delete(deleteRoleIds);
+        } catch (Exception e) {
+            LOGGER.error("删除角色失败", e);
+            return WebApiResponse.fail(CodeConstants.SYSTEM_ERROR, e.getMessage());
+        }
+        return WebApiResponse.success(null);
     }
 }

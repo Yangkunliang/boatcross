@@ -12,4 +12,11 @@
     <select id="findRoleList" resultMap="BaseResultMap">
         SELECT * FROM `role`
     </select>
+
+    <delete id="delete" parameterType="java.util.List">
+        DELETE FROM `role` where id IN
+        <foreach collection="deleteRoleIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
