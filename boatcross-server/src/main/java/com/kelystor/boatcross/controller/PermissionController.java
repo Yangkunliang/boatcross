@@ -4,6 +4,7 @@ import com.kelystor.boatcross.annotation.CurrentUser;
 import com.kelystor.boatcross.constants.CodeConstants;
 import com.kelystor.boatcross.dao.PermissionMapper;
 import com.kelystor.boatcross.dto.PermissionDto;
+import com.kelystor.boatcross.dto.RolePermissionDto;
 import com.kelystor.boatcross.dto.WebApiResponse;
 import com.kelystor.boatcross.entity.Permission;
 import com.kelystor.boatcross.entity.User;
@@ -46,5 +47,17 @@ public class PermissionController {
             return WebApiResponse.fail(CodeConstants.SYSTEM_ERROR, e.getMessage());
         }
         return WebApiResponse.success(null);
+    }
+
+    /**
+     * 根据角色ID编辑权限
+     */
+    @RequestMapping("/editByRoleId")
+    @ResponseBody
+    public WebApiResponse editByRoleId(Long roleId){
+        List<Permission> list = permissionMapper.findPermissionList();
+        // TODO: 2019/10/11 需要增加查询角色-权限关联关系，然后前端页面做自动勾选
+//        List<RolePermissionDto> rolePermissionDtos =
+        return WebApiResponse.success(list);
     }
 }

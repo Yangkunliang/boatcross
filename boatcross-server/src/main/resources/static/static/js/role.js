@@ -76,3 +76,47 @@ function checkParam() {
 function refresh(){
     location.reload();
 }
+
+$("#editRolePermissionBtn").click(function () {
+    var roleIds = $('input[name="roleIds"]:checked');
+    if (roleIds.length == 0) {
+        alert("请选择一项");
+        return;
+    }
+    if(roleIds.length > 1) {
+        alert("最多选择一项");
+        return;
+    }
+    var roleId = $(roleIds[0]).val();
+    $.get(
+        "/permission/editByRoleId?roleId=" + roleId,
+        function (json) {
+            var code = json.code;
+            if (code == 0) {
+                var data = json.data;
+                var _html = '<table class="table table-striped table-bordered table-hover">';
+                _html += '<tr><th style="width: 64px"><label>#</label></th>'
+                    + ' <th style="width: 240px">id</th>'
+                    + ' <th style="width: 240px">权限名称</th>'
+                    + ' <th style="width: 240px">权限标识</th>'
+                    + ' <th style="width: 240px">描述</th>'
+                    + ' <th style="width: 240px">创建人</th>'
+                    + ' <th style="width: 240px">创建时间</th></tr>'
+                $.each(data, function (index, val) {
+                   _html += '<tr><td><input type="checkbox" name="roleIds" value="' + val.id + '"/></td>'
+                        + '<td>' + val.id + '</td>'
+                        + '<td>' + val.name + '</td>'
+                        + '<td>' + val.permission + '</td>'
+                        + '<td>' + val.description + '</td>'
+                        + '<td>' + val.createBy + '</td>'
+                        + '<td>' + val.createTime + '</td></tr>';
+                });
+                _html += '</table>';
+                $("#rolePermissionModal").html(_html);
+                $('#editRolePermissionModal').modal('show');
+            } else {
+                alert("fail" + json.message)
+            }
+        }
+    )
+});

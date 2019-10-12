@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kelystor.boatcross.dao.RolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.kelystor.boatcross.dto.RolePermissionDto">
+        <result column="role_id" property="roleId"/>
+        <collection property="permissionList" ofType="com.kelystor.boatcross.entity.Permission" column="id">
+            <id column="p_id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="permission" property="permission"/>
+        </collection>
+    </resultMap>
+<!--    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO `permission`(`permission`, `name`, `description`, `access_type`,  `create_by`, `create_time`)
+       VALUES (#{permission}, #{name}, #{description}, #{accessType}, #{createBy}, now())
+    </insert>-->
+
+    <select id="findRolePermisssionList" resultMap="BaseResultMap">
+        SELECT * FROM role_permission rp where rp.role_id = #{roleId}
+    </select>
+</mapper>
